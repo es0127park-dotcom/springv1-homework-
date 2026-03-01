@@ -17,4 +17,8 @@ public class BoardService {
         return boards;
     }
 
+    public Board 게시글상세(Integer id) {
+        Board board = boardRepository.findById(id);
+        return board;
+    }
 }
