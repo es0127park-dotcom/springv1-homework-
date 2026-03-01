@@ -37,7 +37,7 @@ public class BoardController {
 
     @GetMapping("/boards/{id}/update-form")
     public String updateForm(@PathVariable("id") Integer id, HttpServletRequest request) {
-        Board board = boardService.게시글수정폼(id);
+        BoardResponse.DTO board = boardService.게시글수정폼(id);
         request.setAttribute("model", board);
         return "board/update-form";
     }

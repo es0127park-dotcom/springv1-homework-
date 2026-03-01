@@ -39,9 +39,10 @@ public class BoardService {
         boardRepository.delete(board);
     }
 
-    public Board 게시글수정폼(Integer id) {
+    public BoardResponse.DTO 게시글수정폼(Integer id) {
         Board board = boardRepository.findById(id).get();
-        return board;
+        BoardResponse.DTO dto = new BoardResponse.DTO(board);
+        return dto;
     }
 
     @Transactional
