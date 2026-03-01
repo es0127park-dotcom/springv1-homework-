@@ -21,9 +21,10 @@ public class BoardService {
         return dtoList;
     }
 
-    public Board 게시글상세(Integer id) {
-        Board board = boardRepository.findById(id);
-        return board;
+    public BoardResponse.DetailDTO 게시글상세(Integer id) {
+        Board board = boardRepository.findById(id).get();
+        BoardResponse.DetailDTO dto = new BoardResponse.DetailDTO(board);
+        return dto;
     }
 
     @Transactional
@@ -36,18 +37,18 @@ public class BoardService {
 
     @Transactional
     public void 게시글삭제(Integer id) {
-        Board board = boardRepository.findById(id);
+        Board board = boardRepository.findById(id).get();
         boardRepository.delete(board);
     }
 
     public Board 게시글수정폼(Integer id) {
-        Board board = boardRepository.findById(id);
+        Board board = boardRepository.findById(id).get();
         return board;
     }
 
     @Transactional
     public void 게시글수정(Integer id, BoardRequest.UpdateDTO requestDTO) {
-        Board board = boardRepository.findById(id);
+        Board board = boardRepository.findById(id).get();
         board.setTitle(requestDTO.getTitle());
         board.setContent(requestDTO.getContent());
     }

@@ -25,7 +25,7 @@ public class BoardController {
 
     @GetMapping("/boards/{id}")
     public String detail(@PathVariable("id") Integer id, HttpServletRequest request) {
-        Board board = boardService.게시글상세(id);
+        BoardResponse.DetailDTO board = boardService.게시글상세(id);
         request.setAttribute("model", board);
         return "board/detail";
     }

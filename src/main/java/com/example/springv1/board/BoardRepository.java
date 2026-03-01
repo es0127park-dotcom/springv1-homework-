@@ -1,6 +1,7 @@
 package com.example.springv1.board;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -13,9 +14,9 @@ public class BoardRepository {
 
     private final EntityManager em;
 
-    public Board findById(Integer id) {
+    public Optional<Board> findById(Integer id) {
         Board board = em.find(Board.class, id);
-        return board;
+        return Optional.ofNullable(board);
     }
 
     public List<Board> findAll() {

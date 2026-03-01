@@ -25,7 +25,7 @@ public class BoardRepositoryTest {
         int id = 2;
 
         // then
-        Board board = boardRepository.findById(id);
+        Board board = boardRepository.findById(id).get();
 
         // eye
         System.out.println("=================================================");
@@ -70,14 +70,14 @@ public class BoardRepositoryTest {
         int id = 2;
 
         // then
-        Board board = boardRepository.findById(id);
+        Board board = boardRepository.findById(id).get();
         board.setTitle("title2-update");
         board.setContent("content2-update");
         em.flush();
         em.clear();
 
         // eye
-        Board result = boardRepository.findById(id);
+        Board result = boardRepository.findById(id).get();
         System.out.println("=================================================");
         System.out.println(result);
     }
@@ -86,7 +86,7 @@ public class BoardRepositoryTest {
     public void delete_test() {
         // given
         int id = 2;
-        Board board = boardRepository.findById(id);
+        Board board = boardRepository.findById(id).get();
 
         // then
         boardRepository.delete(board);
