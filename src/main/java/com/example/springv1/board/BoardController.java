@@ -18,7 +18,7 @@ public class BoardController {
 
     @GetMapping("/")
     public String index(HttpServletRequest request) {
-        List<Board> boards = boardService.게시글목록();
+        List<BoardResponse.DTO> boards = boardService.게시글목록();
         request.setAttribute("models", boards);
         return "index";
     }

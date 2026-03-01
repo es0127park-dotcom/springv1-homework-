@@ -13,9 +13,12 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
 
-    public List<Board> 게시글목록() {
+    public List<BoardResponse.DTO> 게시글목록() {
         List<Board> boards = boardRepository.findAll();
-        return boards;
+        List<BoardResponse.DTO> dtoList = boards.stream()
+                .map(board -> new BoardResponse.DTO(board))
+                .toList();
+        return dtoList;
     }
 
     public Board 게시글상세(Integer id) {
