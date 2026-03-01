@@ -4,7 +4,7 @@
 
     <!-- 수정삭제버튼 -->
     <div class="d-flex justify-content-end">
-        <a href="/boards/1/update-form" class="btn me-1" style="background-color: #999AA0; color: white;">
+        <a href="/boards/{{model.id}}/update-form" class="btn me-1" style="background-color: #999AA0; color: white;">
             수정
         </a>
         <form action="/boards/{{model.id}}/delete" method="post">

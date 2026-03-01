@@ -36,4 +36,9 @@ public class BoardService {
         Board board = boardRepository.findById(id);
         boardRepository.delete(board);
     }
+
+    public Board 게시글수정폼(Integer id) {
+        Board board = boardRepository.findById(id);
+        return board;
+    }
 }

@@ -35,8 +35,10 @@ public class BoardController {
         return "board/save-form";
     }
 
-    @GetMapping("/boards/update-form")
-    public String updateForm() {
+    @GetMapping("/boards/{id}/update-form")
+    public String updateForm(@PathVariable("id") Integer id, HttpServletRequest request) {
+        Board board = boardService.게시글수정폼(id);
+        request.setAttribute("model", board);
         return "board/update-form";
     }
 
