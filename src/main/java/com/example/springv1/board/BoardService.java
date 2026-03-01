@@ -41,4 +41,11 @@ public class BoardService {
         Board board = boardRepository.findById(id);
         return board;
     }
+
+    @Transactional
+    public void 게시글수정(Integer id, BoardRequest.UpdateDTO requestDTO) {
+        Board board = boardRepository.findById(id);
+        board.setTitle(requestDTO.getTitle());
+        board.setContent(requestDTO.getContent());
+    }
 }

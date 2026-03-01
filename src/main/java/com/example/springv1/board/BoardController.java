@@ -53,4 +53,10 @@ public class BoardController {
         boardService.게시글삭제(id);
         return "redirect:/";
     }
+
+    @PostMapping("/boards/{id}/update")
+    public String updateById(@PathVariable("id") Integer id, BoardRequest.UpdateDTO requestDTO) {
+        boardService.게시글수정(id, requestDTO);
+        return "redirect:/boards/" + id;
+    }
 }
