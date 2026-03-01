@@ -29,9 +29,7 @@ public class BoardService {
 
     @Transactional
     public void 게시글추가(BoardRequest.SaveDTO requestDTO) {
-        Board board = new Board();
-        board.setTitle(requestDTO.getTitle());
-        board.setContent(requestDTO.getContent());
+        Board board = requestDTO.toEntity();
         boardRepository.save(board);
     }
 

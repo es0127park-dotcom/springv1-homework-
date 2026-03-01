@@ -49,9 +49,10 @@ public class BoardRepositoryTest {
     @Test
     public void save_test() {
         // given
-        Board board = new Board();
-        board.setTitle("title3");
-        board.setContent("content3");
+        Board board = Board.builder()
+                .title("title3")
+                .content("content3")
+                .build();
 
         // then
         boardRepository.save(board);
