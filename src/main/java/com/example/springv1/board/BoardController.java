@@ -45,4 +45,10 @@ public class BoardController {
         boardService.게시글추가(requestDTD);
         return "redirect:/";
     }
+
+    @PostMapping("/boards/{id}/delete")
+    public String deleteById(@PathVariable("id") Integer id) {
+        boardService.게시글삭제(id);
+        return "redirect:/";
+    }
 }

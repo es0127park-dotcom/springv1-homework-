@@ -30,4 +30,10 @@ public class BoardService {
         board.setContent(requestDTO.getContent());
         boardRepository.save(board);
     }
+
+    @Transactional
+    public void 게시글삭제(Integer id) {
+        Board board = boardRepository.findById(id);
+        boardRepository.delete(board);
+    }
 }
