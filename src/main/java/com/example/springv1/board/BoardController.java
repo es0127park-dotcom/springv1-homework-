@@ -1,13 +1,23 @@
 package com.example.springv1.board;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
 @Controller
 public class BoardController {
 
+    private final BoardService boardService;
+
     @GetMapping("/")
-    public String index() {
+    public String index(HttpServletRequest request) {
+        List<Board> boards = boardService.게시글목록();
+        request.setAttribute("models", boards);
         return "index";
     }
 

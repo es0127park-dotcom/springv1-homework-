@@ -10,39 +10,19 @@
       </tr>
     </thead>
     <tbody>
-      <tr onclick="location.href='/boards/3'" style="cursor: pointer;">
+    {{#models}}
+      <tr onclick="location.href='/boards/{{id}}'" style="cursor: pointer;">
         <td>
-            3
+            {{id}}
         </td>
         <td>
-            제목3
+            {{title}}
         </td>
         <td>
-            내용3
-        </td>
-      </tr>
-        <tr onclick="location.href='/boards/2'" style="cursor: pointer;">
-        <td>
-            2
-        </td>
-        <td>
-            제목2
-        </td>
-        <td>
-            내용2
+            {{content}}
         </td>
       </tr>
-      <tr onclick="location.href='/boards/1'" style="cursor: pointer;">
-        <td>
-            1
-        </td>
-        <td>
-            제목1
-        </td>
-        <td>
-            내용1
-        </td>
-      </tr>
+    {{/models}}
     </tbody>
   </table>
 </div>
