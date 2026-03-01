@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -20,5 +21,13 @@ public class BoardService {
     public Board 게시글상세(Integer id) {
         Board board = boardRepository.findById(id);
         return board;
+    }
+
+    @Transactional
+    public void 게시글추가(BoardRequest.SaveDTO requestDTO) {
+        Board board = new Board();
+        board.setTitle(requestDTO.getTitle());
+        board.setContent(requestDTO.getContent());
+        boardRepository.save(board);
     }
 }

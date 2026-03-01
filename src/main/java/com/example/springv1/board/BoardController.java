@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -37,5 +38,11 @@ public class BoardController {
     @GetMapping("/boards/update-form")
     public String updateForm() {
         return "board/update-form";
+    }
+
+    @PostMapping("/boards/save")
+    public String save(BoardRequest.SaveDTO requestDTD) {
+        boardService.게시글추가(requestDTD);
+        return "redirect:/";
     }
 }
