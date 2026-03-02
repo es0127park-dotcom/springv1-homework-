@@ -82,7 +82,12 @@ public class BoardController {
 
     @PostMapping("/boards/{id}/update")
     public String updateById(@PathVariable("id") Integer id, BoardRequest.UpdateDTO requestDTO) {
-        boardService.게시글수정(id, requestDTO);
+        // 인증
+        User sessionUser = (User) session.getAttribute("session"); // 세션 꺼냄
+        if (sessionUser == null) {
+            throw new Exception401("로그인이 필요합니다.");
+        }
+        boardService.게시글수정(id, requestDTO, sessionUser.getId());
         return "redirect:/boards/" + id;
     }
 }

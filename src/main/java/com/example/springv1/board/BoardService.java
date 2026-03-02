@@ -66,8 +66,15 @@ public class BoardService {
     }
 
     @Transactional
-    public void 게시글수정(Integer id, BoardRequest.UpdateDTO requestDTO) {
-        Board board = boardRepository.findById(id).get();
+    public void 게시글수정(Integer boardId, BoardRequest.UpdateDTO requestDTO, Integer sessionUserId) {
+        Board board = boardRepository.findByIdJoinUser(boardId)
+                .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
+
+        // 권한
+        if (board.getUser().getId() != sessionUserId) {
+            throw new Exception403("게시글을 수정할 권한이 없습니다.");
+        }
+
         board.setTitle(requestDTO.getTitle());
         board.setContent(requestDTO.getContent());
     }
