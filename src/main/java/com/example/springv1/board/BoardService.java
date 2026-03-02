@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.springv1.core.ex.Exception404;
+
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +24,9 @@ public class BoardService {
     }
 
     public BoardResponse.DetailDTO 게시글상세(Integer id) {
-        Board board = boardRepository.findById(id).get();
+        // Board board = boardRepository.findById(id).get();
+        Board board = boardRepository.findByIdJoinUser(id)
+                .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
         BoardResponse.DetailDTO dto = new BoardResponse.DetailDTO(board);
         return dto;
     }

@@ -33,7 +33,7 @@ public class Board {
     @CreationTimestamp
     private Timestamp createdAt;
 
-    @ManyToOne(fetch = FetchType.EAGER) // 다대일 관계 설정
+    @ManyToOne(fetch = FetchType.LAZY) // 다대일 관계 설정
     @JoinColumn(name = "user_id") // 외래 키 지정
     private User user;
 

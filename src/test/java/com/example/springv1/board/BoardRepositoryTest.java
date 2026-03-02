@@ -100,4 +100,43 @@ public class BoardRepositoryTest {
             System.out.println(b);
         }
     }
+
+    @Test
+    public void findByIdEager_test() {
+        // given
+        int id = 1;
+
+        // then
+        Board board = boardRepository.findById(id).get();
+
+        // eye
+        System.out.println("=================================================");
+        System.out.println(board);
+    }
+
+    @Test
+    public void findByIdLazy_test() {
+        // given
+        int id = 1;
+
+        // then
+        Board board = boardRepository.findById(id).get();
+
+        // eye
+        System.out.println("=================================================");
+        System.out.println(board);
+    }
+
+    @Test
+    public void findByIdJoinUser_test() {
+        // given
+        int id = 1;
+
+        // then
+        Board board = boardRepository.findByIdJoinUser(id).get();
+
+        // eye
+        System.out.println("=================================================");
+        System.out.println(board);
+    }
 }

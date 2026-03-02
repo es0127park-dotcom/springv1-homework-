@@ -19,6 +19,14 @@ public class BoardRepository {
         return Optional.ofNullable(board);
     }
 
+    public Optional<Board> findByIdJoinUser(Integer id) {
+        Optional<Board> board = em.createQuery("select b from Board b join fetch b.user where b.id = :id", Board.class)
+                .setParameter("id", id)
+                .getResultStream()
+                .findFirst();
+        return board;
+    }
+
     public List<Board> findAll() {
         List<Board> boards = em.createQuery("select b from Board b", Board.class).getResultList();
         return boards;
