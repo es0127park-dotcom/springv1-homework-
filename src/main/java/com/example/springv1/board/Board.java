@@ -1,11 +1,15 @@
 package com.example.springv1.board;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.example.springv1.reply.Reply;
 import com.example.springv1.user.User;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +17,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
@@ -36,6 +41,9 @@ public class Board {
     @ManyToOne(fetch = FetchType.LAZY) // 다대일 관계 설정
     @JoinColumn(name = "user_id") // 외래 키 지정
     private User user;
+
+    @OneToMany(mappedBy = "board", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    private List<Reply> replies = new ArrayList<>();
 
     @Builder
     public Board(Integer id, String title, String content, Timestamp createdAt, User user) {
