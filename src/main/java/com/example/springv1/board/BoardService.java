@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.springv1.core.ex.Exception403;
 import com.example.springv1.core.ex.Exception404;
 
 import jakarta.transaction.Transactional;
@@ -38,8 +39,15 @@ public class BoardService {
     }
 
     @Transactional
-    public void 게시글삭제(Integer id) {
-        Board board = boardRepository.findById(id).get();
+    public void 게시글삭제(Integer boardId, Integer sessionUserId) {
+        Board board = boardRepository.findByIdJoinUser(boardId)
+                .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
+
+        // 권한
+        if (board.getUser().getId() != sessionUserId) {
+            throw new Exception403("게시글을 삭제할 권한이 없습니다.");
+        }
+
         boardRepository.delete(board);
     }
 

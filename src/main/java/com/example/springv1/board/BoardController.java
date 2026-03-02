@@ -7,7 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.example.springv1.core.ex.Exception401;
+import com.example.springv1.user.User;
+
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -15,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class BoardController {
 
     private final BoardService boardService;
+    private final HttpSession session;
 
     @GetMapping("/")
     public String index(HttpServletRequest request) {
@@ -50,7 +55,12 @@ public class BoardController {
 
     @PostMapping("/boards/{id}/delete")
     public String deleteById(@PathVariable("id") Integer id) {
-        boardService.게시글삭제(id);
+        // 인증
+        User sessionUser = (User) session.getAttribute("session"); // 세션 꺼냄
+        if (sessionUser == null) {
+            throw new Exception401("로그인이 필요합니다.");
+        }
+        boardService.게시글삭제(id, sessionUser.getId());
         return "redirect:/";
     }
 
