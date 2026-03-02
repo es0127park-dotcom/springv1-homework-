@@ -4,10 +4,15 @@ import java.sql.Timestamp;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.example.springv1.user.User;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Builder;
 import lombok.Data;
@@ -28,11 +33,16 @@ public class Board {
     @CreationTimestamp
     private Timestamp createdAt;
 
+    @ManyToOne(fetch = FetchType.EAGER) // 다대일 관계 설정
+    @JoinColumn(name = "user_id") // 외래 키 지정
+    private User user;
+
     @Builder
-    public Board(Integer id, String title, String content, Timestamp createdAt) {
+    public Board(Integer id, String title, String content, Timestamp createdAt, User user) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.createdAt = createdAt;
+        this.user = user;
     }
 }
