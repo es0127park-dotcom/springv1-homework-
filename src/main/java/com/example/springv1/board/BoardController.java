@@ -37,6 +37,11 @@ public class BoardController {
 
     @GetMapping("/boards/save-form")
     public String saveForm() {
+        // 인증
+        User sessionUser = (User) session.getAttribute("session");
+        if (sessionUser == null) {
+            throw new Exception401("로그인이 필요합니다.");
+        }
         return "board/save-form";
     }
 
@@ -49,7 +54,13 @@ public class BoardController {
 
     @PostMapping("/boards/save")
     public String save(BoardRequest.SaveDTO requestDTD) {
-        boardService.게시글추가(requestDTD);
+        // 인증
+        User sessionUser = (User) session.getAttribute("session"); // 세션 꺼냄
+        if (sessionUser == null) {
+            throw new Exception401("로그인이 필요합니다.");
+        }
+
+        boardService.게시글추가(requestDTD, sessionUser);
         return "redirect:/";
     }
 

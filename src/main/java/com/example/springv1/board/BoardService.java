@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.springv1.core.ex.Exception403;
 import com.example.springv1.core.ex.Exception404;
+import com.example.springv1.user.User;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -33,8 +34,8 @@ public class BoardService {
     }
 
     @Transactional
-    public void 게시글추가(BoardRequest.SaveDTO requestDTO) {
-        Board board = requestDTO.toEntity();
+    public void 게시글추가(BoardRequest.SaveDTO requestDTO, User sessionUser) {
+        Board board = requestDTO.toEntity(sessionUser);
         boardRepository.save(board);
     }
 
