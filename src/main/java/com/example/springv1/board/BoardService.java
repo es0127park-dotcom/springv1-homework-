@@ -52,8 +52,15 @@ public class BoardService {
         boardRepository.delete(board);
     }
 
-    public BoardResponse.DTO 게시글수정폼(Integer id) {
-        Board board = boardRepository.findById(id).get();
+    public BoardResponse.DTO 게시글수정폼(Integer boardId, Integer sessionUserId) {
+        Board board = boardRepository.findByIdJoinUser(boardId)
+                .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
+
+        // 권한
+        if (board.getUser().getId() != sessionUserId) {
+            throw new Exception403("게시글을 수정할 권한이 없습니다.");
+        }
+
         BoardResponse.DTO dto = new BoardResponse.DTO(board);
         return dto;
     }

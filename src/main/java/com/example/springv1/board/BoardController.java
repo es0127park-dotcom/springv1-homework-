@@ -47,7 +47,12 @@ public class BoardController {
 
     @GetMapping("/boards/{id}/update-form")
     public String updateForm(@PathVariable("id") Integer id, HttpServletRequest request) {
-        BoardResponse.DTO board = boardService.게시글수정폼(id);
+        // 인증
+        User sessionUser = (User) session.getAttribute("session"); // 세션 꺼냄
+        if (sessionUser == null) {
+            throw new Exception401("로그인이 필요합니다.");
+        }
+        BoardResponse.DTO board = boardService.게시글수정폼(id, sessionUser.getId());
         request.setAttribute("model", board);
         return "board/update-form";
     }
