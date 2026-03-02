@@ -3,6 +3,7 @@ package com.example.springv1.user;
 import org.springframework.stereotype.Service;
 
 import com.example.springv1.core.ex.Exception401;
+import com.example.springv1.core.ex.Exception404;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -23,5 +24,18 @@ public class UserService {
         // 회원가입
         User user = requestDTO.toEntity();
         userRepository.save(user);
+    }
+
+    public User 로그인(UserRequest.LoginDTO requestDTO) {
+        // 유저 조회
+        User user = userRepository.findByUsername(requestDTO.getUsername())
+                .orElseThrow(() -> new Exception404("유저네임을 찾을 수 없습니다."));
+
+        // 비밀번호 확인
+        if (!user.getPassword().equals(requestDTO.getPassword())) {
+            throw new Exception401("비밀번호가 일치하지 않습니다.");
+        }
+
+        return user;
     }
 }

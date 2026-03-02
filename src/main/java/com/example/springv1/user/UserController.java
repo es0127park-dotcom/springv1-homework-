@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -11,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
     private final UserService userService;
+    private final HttpSession session;
 
     @GetMapping("/join-form")
     public String joinForm() {
@@ -26,5 +28,18 @@ public class UserController {
     public String join(UserRequest.SaveDTO requestDTO) {
         userService.회원가입(requestDTO);
         return "redirect:/login-form";
+    }
+
+    @PostMapping("/login")
+    public String login(UserRequest.LoginDTO requestDTO) {
+        User user = userService.로그인(requestDTO);
+        session.setAttribute("session", user); // 세션에 저장
+        return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        session.invalidate(); // 세션 종료
+        return "redirect:/";
     }
 }
