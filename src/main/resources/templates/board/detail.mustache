@@ -44,25 +44,17 @@
         </div>
         <div class="list-group">
             <!-- 댓글아이템 -->
+            {{#model.replies}}
             <div class="list-group-item d-flex justify-content-between align-items-center">
                 <div class="d-flex">
-                    <div class="px-1 me-1 bg-secondary text-white rounded">익명</div>
-                    <div>댓글 내용2</div>
+                    <div class="px-1 me-1 bg-secondary text-white rounded">{{username}}</div>
+                    <div>{{comment}}</div>
                 </div>
-                <form action="/replies/1/delete" method="post">
+                <form action="/replies/{{id}}/delete" method="post">
                     <button class="btn">🗑</button>
                 </form>
             </div>
-            <!-- 댓글아이템 -->
-            <div class="list-group-item d-flex justify-content-between align-items-center">
-                <div class="d-flex">
-                    <div class="px-1 me-1 bg-secondary text-white rounded">익명</div>
-                    <div>댓글 내용1</div>
-                </div>
-                <form action="/replies/1/delete" method="post">
-                    <button class="btn">🗑</button>
-                </form>
-            </div>
+            {{/model.replies}}
         </div>
     </div>
 </div>

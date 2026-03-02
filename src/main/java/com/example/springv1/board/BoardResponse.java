@@ -1,5 +1,10 @@
 package com.example.springv1.board;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.example.springv1.reply.Reply;
+
 import lombok.Data;
 
 public class BoardResponse {
@@ -24,6 +29,7 @@ public class BoardResponse {
         private String content;
         private Integer userId;
         private String username;
+        private List<ReplyDTO> replies = new ArrayList<>();
 
         public DetailDTO(Board board) {
             this.id = board.getId();
@@ -31,6 +37,22 @@ public class BoardResponse {
             this.content = board.getContent();
             this.userId = board.getUser().getId();
             this.username = board.getUser().getUsername();
+            this.replies = board.getReplies().stream()
+                    .map(reply -> new ReplyDTO(reply))
+                    .toList();
+        }
+
+        @Data
+        public class ReplyDTO {
+            private Integer id;
+            private String username;
+            private String comment;
+
+            public ReplyDTO(Reply reply) {
+                this.id = reply.getId();
+                this.username = reply.getUser().getUsername();
+                this.comment = reply.getComment();
+            }
         }
     }
 }

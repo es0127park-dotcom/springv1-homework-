@@ -27,7 +27,9 @@ public class BoardService {
 
     public BoardResponse.DetailDTO 게시글상세(Integer id) {
         // Board board = boardRepository.findById(id).get();
-        Board board = boardRepository.findByIdJoinUser(id)
+        // Board board = boardRepository.findByIdJoinUser(id)
+        // .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
+        Board board = boardRepository.findByIdJoinUserAndReply(id)
                 .orElseThrow(() -> new Exception404("게시글을 찾을 수 없습니다."));
         BoardResponse.DetailDTO dto = new BoardResponse.DetailDTO(board);
         return dto;

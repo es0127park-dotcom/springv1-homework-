@@ -139,4 +139,19 @@ public class BoardRepositoryTest {
         System.out.println("=================================================");
         System.out.println(board);
     }
+
+    @Test
+    public void findByIdJoinUserAndReply_test() {
+        // given
+        int id = 1;
+
+        // when
+        Board board = boardRepository.findByIdJoinUserAndReply(id).get();
+
+        // eye
+        System.out.println("=================================================");
+        System.out.println("Board ID : " + board.getId());
+        System.out.println("username : " + board.getUser().getUsername());
+        System.out.println("Reply : " + board.getReplies().get(1).getComment());
+    }
 }

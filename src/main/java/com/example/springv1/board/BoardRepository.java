@@ -39,4 +39,14 @@ public class BoardRepository {
     public void delete(Board board) {
         em.remove(board);
     }
+
+    public Optional<Board> findByIdJoinUserAndReply(Integer id) {
+        Optional<Board> board = em
+                .createQuery("select b from Board b join fetch b.user left join fetch b.replies where b.id = :id",
+                        Board.class)
+                .setParameter("id", id)
+                .getResultStream()
+                .findFirst();
+        return board;
+    }
 }
